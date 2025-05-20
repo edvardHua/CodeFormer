@@ -1,7 +1,7 @@
 # general settings
 name: CodeFormer_stage3
 model_type: CodeFormerJointModel
-num_gpu: 8
+num_gpu: 2
 manual_seed: 0
 
 # dataset and data loader settings
@@ -9,7 +9,8 @@ datasets:
   train:
     name: FFHQ
     type: FFHQBlindJointDataset
-    dataroot_gt: datasets/ffhq/ffhq_512
+    dataroot_gt: /data/zengzihua/datasets/face_related/p2p_smile_fireflow_smile
+    dataroot_input: /data/zengzihua/datasets/face_related/p2p_smile_fireflow_ori
     filename_tmpl: '{}'
     io_backend:
       type: disk
@@ -37,8 +38,8 @@ datasets:
     noise_range_large: [0, 20]
     jpeg_range_large: [30, 80]
 
-    latent_gt_path: ~ # without pre-calculated latent code
-    # latent_gt_path: './experiments/pretrained_models/VQGAN/latent_gt_code1024.pth'
+    # latent_gt_path: ~ # without pre-calculated latent code
+    latent_gt_path: '/data/zengzihua/CodeFormer/experiments/pretrained_models/vqgan/latent_gt_code1024.pth'
 
     # data loader
     num_worker_per_gpu: 1
@@ -83,10 +84,10 @@ network_d:
 
 # path
 path:
-  pretrain_network_g: './experiments/pretrained_models/CodeFormer_stage2/net_g_latest.pth' # pretrained G model in StageII 
+  pretrain_network_g: '/data/zengzihua/CodeFormer/experiments/20250515_175635_CodeFormer_stage2/models/net_g_latest.pth' # pretrained G model in StageII 
   param_key_g: params_ema
   strict_load_g: false
-  pretrain_network_d: './experiments/pretrained_models/CodeFormer_stage2/net_d_latest.pth' # pretrained D model in StageII
+  pretrain_network_d: '/data/zengzihua/CodeFormer/experiments/20250514_160816_VQGAN-512-ds32-nearest-stage1/models/net_d_660000.pth' # pretrained D model in StageII，用的是vqgan的 d，拿笑脸训练的，理论上拿预训练的d也行
   resume_state: ~
 
 # base_lr(4.5e-6)*bach_size(4)
